@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#84cc16', '#f97316'];
 
-const ResultsChart = ({ results, title }) => {
+const ResultsChart = ({ results, detailedResults, vote, title }) => {
   // Transform results object to array format for recharts
   const chartData = Object.entries(results || {}).map(([option, votes], index) => ({
     option: option.length > 20 ? option.substring(0, 20) + '...' : option,
@@ -78,31 +78,61 @@ const ResultsChart = ({ results, title }) => {
       </div>
 
       {/* Results summary table */}
-      <div className="space-y-3">
+      <div className="space-y-4">
         <h4 className="text-sm font-medium text-gray-700 mb-3">Detailed Results</h4>
         {chartData
           .sort((a, b) => b.votes - a.votes)
           .map((item, index) => {
             const percentage = totalVotes > 0 ? ((item.votes / totalVotes) * 100).toFixed(1) : 0;
+            const optionDetails = detailedResults?.[item.fullOption];
+            
             return (
-              <div key={item.fullOption} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
-                <div className="flex items-center space-x-3">
-                  <div 
-                    className="w-4 h-4 rounded"
-                    style={{ backgroundColor: item.color }}
-                  ></div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {index + 1}. {item.fullOption}
-                  </span>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm font-semibold text-gray-900">
-                    {item.votes} votes
+              <div key={item.fullOption} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-3">
+                    <div 
+                      className="w-4 h-4 rounded"
+                      style={{ backgroundColor: item.color }}
+                    ></div>
+                    <span className="text-sm font-medium text-gray-900">
+                      {index + 1}. {item.fullOption}
+                    </span>
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {percentage}%
+                  <div className="text-right">
+                    <div className="text-lg font-bold text-gray-900">
+                      {item.votes} votes
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {percentage}%
+                    </div>
                   </div>
                 </div>
+                
+                {/* Show voter names for non-anonymous votes */}
+                {vote && !vote.anonymous && optionDetails && optionDetails.voters && optionDetails.voters.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-300">
+                    <h5 className="text-xs font-medium text-gray-600 mb-2">Voters:</h5>
+                    <div className="flex flex-wrap gap-1">
+                      {optionDetails.voters.map((voter, voterIndex) => (
+                        <span
+                          key={voterIndex}
+                          className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                        >
+                          {voter}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Show anonymous message for anonymous votes */}
+                {vote && vote.anonymous && item.votes > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-300">
+                    <p className="text-xs text-gray-500 italic">
+                      Anonymous voting - voter identities hidden
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}

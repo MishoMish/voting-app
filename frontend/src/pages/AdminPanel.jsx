@@ -654,6 +654,8 @@ const AdminPanel = ({ user, setUser }) => {
               <>
                 <ResultsChart 
                   results={results.results} 
+                  detailedResults={results.detailedResults}
+                  vote={results.vote}
                   title={results.vote?.title}
                 />
                 

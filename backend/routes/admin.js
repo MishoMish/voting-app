@@ -404,24 +404,42 @@ router.get('/results', requireAdmin, (req, res) => {
       WHERE s.vote_id = ?
     `).all(vote.id);
     
-    // Process results
+    // Process results with detailed voter information
     const options = JSON.parse(vote.options_json);
     const results = {};
+    const detailedResults = {};
     
-    // Initialize all options with 0 votes
+    // Initialize all options with 0 votes and empty voter lists
     options.forEach(option => {
       results[option] = 0;
+      detailedResults[option] = {
+        count: 0,
+        voters: []
+      };
     });
     
-    // Count votes
+    // Count votes and collect voter information
     submissions.forEach(submission => {
       const choices = JSON.parse(submission.choices_json);
       choices.forEach(choice => {
         if (results.hasOwnProperty(choice)) {
           results[choice]++;
+          detailedResults[choice].count++;
+          
+          // Add voter name only if vote is not anonymous
+          if (!vote.anonymous) {
+            detailedResults[choice].voters.push(submission.username);
+          }
         }
       });
     });
+    
+    // Sort voter names alphabetically for each option
+    if (!vote.anonymous) {
+      Object.keys(detailedResults).forEach(option => {
+        detailedResults[option].voters.sort();
+      });
+    }
     
     // Get total stats
     const totalUsers = db.prepare('SELECT COUNT(*) as count FROM users').get().count;
@@ -433,6 +451,7 @@ router.get('/results', requireAdmin, (req, res) => {
         options: options
       },
       results,
+      detailedResults,
       stats: {
         totalUsers,
         totalVoted,
