@@ -46,6 +46,81 @@ Then visit:
 - Works on phones, tablets, and desktops
 - Clean, accessible interface
 
+## 📸 Application Showcase
+
+### 🔐 Authentication & Access
+The application features a secure login system with role-based access control.
+
+| Feature | Description | Screenshot |
+|---------|-------------|------------|
+| **Login Interface** | Clean, simple login page with username/password fields | `docs/screenshots/user/login-page.png` |
+| **Admin Access** | Dedicated admin authentication with enhanced privileges | `docs/screenshots/user/admin-login.png` |
+
+### 👤 User Experience
+Regular users have a streamlined voting experience focused on simplicity.
+
+| Feature | Description | Screenshot |
+|---------|-------------|------------|
+| **User Dashboard** | Clean interface showing available votes and status | `docs/screenshots/user/user-dashboard.png` |
+| **Voting Interface** | Intuitive vote selection with multiple choice options | `docs/screenshots/user/voting-interface.png` |
+| **Vote Confirmation** | Clear feedback after successful vote submission | `docs/screenshots/user/vote-confirmation.png` |
+| **Results View** | User's view of voting results when available | `docs/screenshots/user/waiting-for-results.png` |
+
+### 👨‍💼 Admin Panel Features
+Comprehensive administrative interface for complete vote management.
+
+| Feature | Description | Screenshot |
+|---------|-------------|------------|
+| **Admin Dashboard** | Overview with real-time statistics and navigation | `docs/screenshots/admin/admin-dashboard.png` |
+| **Vote Creation** | Form-based vote creation with customizable options | `docs/screenshots/admin/create-vote-form.png` |
+| **Advanced Options** | Anonymous voting toggle and multiple choice settings | `docs/screenshots/admin/vote-creation-options.png` |
+| **Real-time Monitoring** | Live tracking of voting progress and participation | `docs/screenshots/admin/real-time-monitoring.png` |
+| **User Management** | Add, remove, and manage user accounts | `docs/screenshots/admin/user-management.png` |
+| **Add Users** | Simple form for creating new user accounts | `docs/screenshots/admin/add-user-form.png` |
+
+### 🎯 Results & Analytics
+Powerful results display with different modes for anonymous and named voting.
+
+| Feature | Description | Screenshot |
+|---------|-------------|------------|
+| **Anonymous Results** | Vote counts only, protecting voter privacy | `docs/screenshots/features/results-anonymous.png` |
+| **Named Results** | **Bold vote counts** with **alphabetically sorted voter names** | `docs/screenshots/features/results-with-names.png` |
+| **Vote History** | Historical data viewing with export capabilities | `docs/screenshots/features/vote-history.png` |
+| **Detailed View** | Comprehensive vote details and participation metrics | `docs/screenshots/features/vote-details-popup.png` |
+| **Data Export** | Export voting data to JSON or CSV formats | `docs/screenshots/features/export-options.png` |
+
+### 📱 Technical Features
+Modern technical capabilities ensuring reliability and accessibility.
+
+| Feature | Description | Screenshot |
+|---------|-------------|------------|
+| **Responsive Design** | Mobile-friendly interface that works on all devices | `docs/screenshots/features/responsive-mobile.png` |
+| **Docker Deployment** | Single-command deployment with Docker Compose | `docs/screenshots/features/docker-startup.png` |
+| **Network Access** | LAN accessibility for multiple devices | `docs/screenshots/features/network-access.png` |
+| **Real-time Updates** | WebSocket-powered live vote tracking | `docs/screenshots/features/real-time-updates.png` |
+
+### 🎨 Key Visual Highlights
+
+#### Anonymous vs Named Voting
+The application intelligently handles two distinct voting modes:
+
+- **🔒 Anonymous Voting**: Shows only vote counts with privacy protection
+- **👥 Named Voting**: Displays **bold vote counts** with **voter names as organized tags below**, sorted alphabetically
+
+#### Modern UI/UX Design
+- **Clean Interface**: Minimalist design focused on usability
+- **Real-time Feedback**: Instant updates and notifications
+- **Responsive Layout**: Seamless experience across all device types
+- **Accessible Design**: Clear typography and intuitive navigation
+
+#### Admin Control Center
+- **Comprehensive Dashboard**: Real-time statistics and system overview
+- **Advanced Management**: User creation, vote management, and system control  
+- **Data Analytics**: Detailed participation metrics and export capabilities
+- **Security Features**: Role-based access and session management
+
+> **📝 Note**: To view the actual screenshots, please refer to the files in the `docs/screenshots/` directory. Follow the [Screenshot Guide](docs/SCREENSHOT_GUIDE.md) to capture your own screenshots of the application in action.
+
 ## 🏗️ Architecture
 
 ```
@@ -372,7 +447,29 @@ SELECT * FROM users;
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
+## � Documentation
+
+### Screenshots & Visual Guide
+This repository includes comprehensive visual documentation:
+
+- **`docs/SCREENSHOT_GUIDE.md`**: Complete guide for taking application screenshots
+- **`docs/screenshots/`**: Organized screenshot collection showcasing all features
+  - `admin/`: Admin panel functionality
+  - `user/`: User experience flows  
+  - `features/`: Specific feature demonstrations
+
+### Getting Screenshots
+To capture your own screenshots of the application:
+
+1. **Follow the guide**: See `docs/SCREENSHOT_GUIDE.md` for detailed instructions
+2. **Run the application**: Ensure it's running at `http://localhost:3000`
+3. **Use test data**: Log in with provided test accounts
+4. **Capture systematically**: Follow the suggested screenshot checklist
+5. **Maintain quality**: Use high-resolution images (1920x1080 minimum)
+
+The screenshot guide provides specific instructions for capturing each feature and organizing them properly.
+
+## �📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
