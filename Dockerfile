@@ -9,7 +9,8 @@ COPY frontend/package*.json ./frontend/
 COPY backend/package*.json ./backend/
 
 # Install dependencies
-RUN cd frontend && npm ci --only=production && npm cache clean --force
+# Frontend needs devDependencies for Vite build
+RUN cd frontend && npm ci && npm cache clean --force
 RUN cd backend && npm ci --only=production && npm cache clean --force
 
 # Copy source code
@@ -27,9 +28,6 @@ WORKDIR /app
 
 # Copy backend files and dependencies
 COPY --from=builder /app/backend ./backend
-
-# Copy frontend build to backend's public directory
-COPY --from=builder /app/backend/public ./backend/public
 
 # Create data directory for SQLite database with proper permissions
 RUN mkdir -p ./backend/data
@@ -51,9 +49,6 @@ EXPOSE 3000
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/api/health || exit 1
 
 # Start the application
 CMD ["node", "backend/server.js"]
